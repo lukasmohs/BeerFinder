@@ -1,20 +1,10 @@
 package lmohs.cmu.edu.beerfinder;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
-
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  * Created by lukasmohs on 27/03/17.
@@ -24,9 +14,9 @@ public class Connection {
 
     private MainActivity instance;
 
-    public void getBeer(MainActivity callback) {
+    public void getBeer(MainActivity callback, double lat, double lon, int radius) {
         instance = callback;
-        new AsyncBackendCall().execute("here");
+        new AsyncBackendCall().execute(lat+"", lon+"", radius + "");
 
     }
 
@@ -42,8 +32,10 @@ public class Connection {
             HttpURLConnection urlConnection = null;
             String res = "";
             try {
-                url = new URL("https://whispering-lowlands-87866.herokuapp.com/getBeer");
-
+                url = new URL("https://whispering-lowlands-87866.herokuapp.com/getBeer"
+                        + "?lat=" + params[0]
+                        + "&lon=" + params[1]
+                        + "&radius="+ params[2]);
                 urlConnection = (HttpURLConnection) url
                         .openConnection();
 
