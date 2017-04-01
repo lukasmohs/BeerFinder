@@ -13,13 +13,15 @@ import java.util.ArrayList;
 
 public class Connection {
 
-    private String SERVICEURL = "https://whispering-lowlands-87866.herokuapp.com/getBeer";
+    //private String SERVICEURL = "https://whispering-lowlands-87866.herokuapp.com/getBeer";
+    private String SERVICEURL = "http://128.237.190.61:8080/BeerFinder/getBeer";
 
     private MainActivity instance;
 
     public void getBeer(MainActivity callback, double lat, double lon, int radius) {
         instance = callback;
-        new AsyncBackendCall().execute(lat+"", lon+"", radius + "");
+        String os = "Android " + System.getProperty("os.version");
+        new AsyncBackendCall().execute(lat+"", lon+"", radius + "", os);
 
     }
 
@@ -39,7 +41,8 @@ public class Connection {
                 url = new URL(SERVICEURL
                         + "?lat=" + params[0]
                         + "&lon=" + params[1]
-                        + "&radius="+ params[2]);
+                        + "&radius="+ params[2]
+                        +  "&os=" + params[3]);
                 urlConnection = (HttpURLConnection) url
                         .openConnection();
 
