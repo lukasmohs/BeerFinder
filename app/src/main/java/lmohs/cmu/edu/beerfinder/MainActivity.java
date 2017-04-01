@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         BarsAdapter adapter = new BarsAdapter(this, R.layout.barlistrow, bars);
         barListView.setAdapter(adapter);
         if(bars.size()==0) {
-            Toast toast = Toast.makeText(getApplicationContext(), "Unfortunately, no bar was found in your ares," +
+            Toast toast = Toast.makeText(getApplicationContext(), "Unfortunately, no bar was found in your area," +
                     "please try to increase the radius or move to a city!", Toast.LENGTH_LONG);
             toast.show();
         }

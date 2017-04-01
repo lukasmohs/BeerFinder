@@ -13,6 +13,8 @@ import java.util.ArrayList;
 
 public class Connection {
 
+    private String SERVICEURL = "https://whispering-lowlands-87866.herokuapp.com/getBeer";
+
     private MainActivity instance;
 
     public void getBeer(MainActivity callback, double lat, double lon, int radius) {
@@ -34,7 +36,7 @@ public class Connection {
             HttpURLConnection urlConnection = null;
             String res = "";
             try {
-                url = new URL("https://whispering-lowlands-87866.herokuapp.com/BeerFinder/getBeer"
+                url = new URL(SERVICEURL
                         + "?lat=" + params[0]
                         + "&lon=" + params[1]
                         + "&radius="+ params[2]);
