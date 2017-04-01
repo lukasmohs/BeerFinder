@@ -36,6 +36,11 @@ public class MainActivity extends AppCompatActivity {
         ListView barListView = ((ListView)findViewById(R.id.listView));
         BarsAdapter adapter = new BarsAdapter(this, R.layout.barlistrow, bars);
         barListView.setAdapter(adapter);
+        if(bars.size()==0) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Unfortunately, no bar was found in your ares," +
+                    "please try to increase the radius or move to a city!", Toast.LENGTH_LONG);
+            toast.show();
+        }
     }
 
     private int getRadius() {

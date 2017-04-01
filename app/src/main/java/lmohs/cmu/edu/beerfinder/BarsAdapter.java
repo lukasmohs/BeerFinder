@@ -38,21 +38,13 @@ public class BarsAdapter extends ArrayAdapter<Bar> {
         Bar b = getItem(position);
         System.out.println("bar " + position + ": " + b.getName());
         if (b != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.id);
-            TextView tt2 = (TextView) v.findViewById(R.id.categoryId);
-            TextView tt3 = (TextView) v.findViewById(R.id.description);
+            TextView t1 = (TextView) v.findViewById(R.id.id);
+            TextView t2 = (TextView) v.findViewById(R.id.categoryId);
+            TextView t3 = (TextView) v.findViewById(R.id.description);
 
-            if (tt1 != null) {
-                tt1.setText(b.getName());
-            }
-
-            if (tt2 != null) {
-                tt2.setText(b.getAddress());
-            }
-
-            if (tt3 != null) {
-                tt3.setText(b.getPrice());
-            }
+            t1.setText(b.getName());
+            t2.setText(b.getAddress());
+            t3.setText(b.getPrice());
         }
 
         return v;
