@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by lukasmohs on 27/03/17.
@@ -23,7 +24,8 @@ public class Connection {
     private class AsyncBackendCall extends AsyncTask<String, Void, String> {
 
         protected void onPostExecute(String res) {
-            instance.onDownloadReady(res);
+            ArrayList<Bar> bars = XMLParser.parseServerResponseIntoBars(res);
+            instance.onDownloadReady(bars);
         }
 
         @Override
@@ -32,7 +34,7 @@ public class Connection {
             HttpURLConnection urlConnection = null;
             String res = "";
             try {
-                url = new URL("https://whispering-lowlands-87866.herokuapp.com/getBeer"
+                url = new URL("https://whispering-lowlands-87866.herokuapp.com/BeerFinder/getBeer"
                         + "?lat=" + params[0]
                         + "&lon=" + params[1]
                         + "&radius="+ params[2]);

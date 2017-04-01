@@ -16,10 +16,10 @@
         tools:layout_editor_absoluteX="8dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/radiusView"
             android:layout_width="368dp"
             android:layout_height="wrap_content"
-            android:text="Distance:"
+            android:text="Radius: 500m"
             android:paddingBottom="5dp"
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp" />
@@ -29,11 +29,11 @@
             style="@style/Widget.AppCompat.SeekBar.Discrete"
             android:layout_width="368dp"
             android:layout_height="wrap_content"
+            android:layout_below="@id/radiusView"
             android:max="10"
-            android:progress="3"
-            android:layout_below="@id/textView2"
-            tools:layout_editor_absoluteY="0dp"
-            tools:layout_editor_absoluteX="0dp" />
+            android:progress="5"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
 
         <Button
             android:id="@+id/searchButton"
@@ -45,12 +45,12 @@
             tools:layout_editor_absoluteY="0dp"
             tools:layout_editor_absoluteX="0dp" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="368dp"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:paddingTop="5dp"
-            android:layout_below="@id/searchButton" />
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/searchButton"
+            android:layout_centerHorizontal="true" />
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

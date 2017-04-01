@@ -1,7 +1,6 @@
 package lmohs.cmu.edu.beerfinder;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -11,25 +10,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
+
+    private int radius;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        initSeekBar();
         initSearchButton();
 
     }
 
-    public void onDownloadReady(String res){
-        System.out.println(res);
-        ((TextView)findViewById(R.id.textView)).setText(res);
+    public void onDownloadReady(ArrayList<Bar> bars){
+
+        ListView barListView = ((ListView)findViewById(R.id.listView));
+        BarsAdapter adapter = new BarsAdapter(this, R.layout.barlistrow, bars);
+        barListView.setAdapter(adapter);
+    }
+
+    private int getRadius() {
+        return radius;
+    }
+
+    private void setRadius(int mRadius) {
+        radius = mRadius;
+        ((TextView)findViewById(R.id.radiusView)).setText("Radius: " +mRadius + "m");
     }
 
     private void initSearchButton() {
@@ -64,7 +79,25 @@ public class MainActivity extends AppCompatActivity {
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0.0f, mLocationListener);
 
                 new Connection().getBeer(callback,mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude(),
-                        mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude(), 300);
+                        mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude(), getRadius());
+            }
+        });
+    }
+
+    private void initSeekBar() {
+        SeekBar sBar = (SeekBar) findViewById(R.id.seekBar);
+
+        sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            int newRadius = 0;
+
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser){
+                newRadius = progress * 100;
+            }
+
+            public void onStartTrackingTouch(SeekBar seekBar) {}
+
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                setRadius(newRadius);
             }
         });
     }
