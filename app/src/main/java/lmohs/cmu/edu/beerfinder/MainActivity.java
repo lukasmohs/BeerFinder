@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private int radius;
+    private int radius = 500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class Connection {
 
-    private String SERVICEURL = "https://whispering-lowlands-87866.herokuapp.com/getBeer";
+    private String SERVICEURL = "https://beerfinderbackend.herokuapp.com/getBeer";
     //private String SERVICEURL = "http://128.237.190.61:8080/BeerFinder/getBeer";
 
     private MainActivity instance;
@@ -54,7 +54,6 @@ public class Connection {
                 while (data != -1) {
                     char current = (char) data;
                     data = isw.read();
-                    //System.out.print(current);
                     res += current;
                 }
             } catch (Exception e) {
