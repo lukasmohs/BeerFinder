@@ -36,11 +36,10 @@ public class BarsAdapter extends ArrayAdapter<Bar> {
         }
 
         Bar b = getItem(position);
-        System.out.println("bar " + position + ": " + b.getName());
         if (b != null) {
-            TextView t1 = (TextView) v.findViewById(R.id.id);
-            TextView t2 = (TextView) v.findViewById(R.id.categoryId);
-            TextView t3 = (TextView) v.findViewById(R.id.description);
+            TextView t1 = (TextView) v.findViewById(R.id.name);
+            TextView t2 = (TextView) v.findViewById(R.id.address);
+            TextView t3 = (TextView) v.findViewById(R.id.price);
 
             t1.setText(b.getName());
             t2.setText(b.getAddress());

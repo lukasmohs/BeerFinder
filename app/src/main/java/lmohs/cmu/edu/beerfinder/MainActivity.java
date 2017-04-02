@@ -1,7 +1,13 @@
 package lmohs.cmu.edu.beerfinder;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,6 +26,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private int radius = 500;
+    private ProgressDialog progress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,16 +36,21 @@ public class MainActivity extends AppCompatActivity {
         initSeekBar();
         initSearchButton();
 
+
+    }
+
+    private Context getContext() {
+        return this;
     }
 
     public void onDownloadReady(ArrayList<Bar> bars){
-
         ListView barListView = ((ListView)findViewById(R.id.listView));
         BarsAdapter adapter = new BarsAdapter(this, R.layout.barlistrow, bars);
         barListView.setAdapter(adapter);
+        progress.dismiss();
         if(bars.size()==0) {
             Toast toast = Toast.makeText(getApplicationContext(), "Unfortunately, no bar was found in your area," +
-                    "please try to increase the radius or move to a city!", Toast.LENGTH_LONG);
+                    " please try to increase the radius or move to a city!", Toast.LENGTH_LONG);
             toast.show();
         }
     }
@@ -74,15 +86,18 @@ public class MainActivity extends AppCompatActivity {
         final Button button = (Button) findViewById(R.id.searchButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     String message = "Please give the App permission to access the location service";
                     Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
                     toast.show();
                     return;
                 }
+                progress = new ProgressDialog(getContext());
+                progress.setTitle("Searching");
+                progress.setMessage("Hoping for hops...");
+                progress.setCancelable(false); // disable dismiss by tapping outside of the dialog
+                progress.show();
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0.0f, mLocationListener);
-
                 new Connection().getBeer(callback,mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLatitude(),
                         mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER).getLongitude(), getRadius());
             }
@@ -91,7 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void initSeekBar() {
         SeekBar sBar = (SeekBar) findViewById(R.id.seekBar);
+        sBar.getProgressDrawable().setColorFilter(Color.BLUE, PorterDuff.Mode.SRC_IN);
+        ShapeDrawable thumb = new ShapeDrawable(new OvalShape());
 
+        thumb.setIntrinsicHeight(50);
+        thumb.setIntrinsicWidth(50);
+        sBar.setThumb(thumb);
+        sBar.getThumb().setColorFilter(Color.rgb(100,149,237), PorterDuff.Mode.SRC_IN);
         sBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             int newRadius = 0;
 
