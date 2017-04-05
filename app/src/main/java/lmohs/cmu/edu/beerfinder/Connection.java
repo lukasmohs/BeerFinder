@@ -23,6 +23,8 @@ public class Connection {
     public void getBeer(MainActivity callback, double lat, double lon, int radius) {
         instance = callback;
         String os = "Android " + System.getProperty("os.version");
+        System.out.println(os);
+        System.out.println(getDeviceName());
         new AsyncBackendCall().execute(lat+"", lon+"", radius + "", os,  getDeviceName());
 
     }
