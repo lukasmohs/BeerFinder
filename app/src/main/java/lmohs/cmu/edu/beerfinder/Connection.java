@@ -34,8 +34,8 @@ public class Connection {
         // Keep the pointer to the Main Activity for the callback
         instance = callback;
         // Retrieve the OS and device name for the logging of the client activity
-        String os = "Android " + System.getProperty("os.version");
-        String deviceName = getDeviceName();
+        String os = "Android_" + System.getProperty("os.version").replaceAll("\\s+","");
+        String deviceName = getDeviceName().replaceAll("\\s+","");
         // Instantiate the AsyncBackendCall
         new AsyncBackendCall().execute(lat+"", lon+"", radius + "", os,  deviceName);
     }
