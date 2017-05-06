@@ -56,7 +56,7 @@ public class Connection {
          */
         protected void onPostExecute(String res) {
             // Convert the plain backend server answer to a ArrayList of Bar objects
-            ArrayList<Bar> bars = XMLParser.parseServerResponseIntoBars(res);
+            ArrayList<Bar> bars = JSONParser.parseServerResponseIntoBars(res);
             // Invoke the onDownloadReady() method of the MainActivity to update the UI with Bars
             instance.onDownloadReady(bars);
         }
