@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by lukasmohs on 31/03/17.
  */
 
-public class XMLParser {
+public class JSONParser {
 
     /**
      * This static method takes the JSON formatted server answer and parses it into an ArrayList of
