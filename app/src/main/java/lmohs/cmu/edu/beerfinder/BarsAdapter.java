@@ -69,11 +69,14 @@ public class BarsAdapter extends ArrayAdapter<Bar> {
             t3.setText(b.getPrice());
             // Set color of price indicator depending on price level
             if(b.getPrice().length()>=3) {
-                t3.setTextColor(Color.RED);
+                t3.setTextColor(Color.rgb(255,84,104));
             } else if (b.getPrice().length()==2) {
-                t3.setTextColor(Color.YELLOW);
+                t3.setTextColor(Color.rgb(250,190,77));
             } else {
-                t3.setTextColor(Color.GREEN);
+                t3.setTextColor(Color.rgb(77,250,144));
+            }
+            if(b.getPrice().contains("?")) {
+                t3.setTextColor(Color.rgb(82,82,82));
             }
         }
         // Return the View
