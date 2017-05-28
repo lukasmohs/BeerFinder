@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:text="name"
             android:textStyle="bold"
-            android:gravity="left"
+            android:gravity="start"
             android:layout_weight="1"
             android:height="40sp" />
 
@@ -22,7 +22,8 @@
             android:layout_weight="1"
             android:textColor="#6495ED"
             android:textSize="20sp"
-            android:gravity="right"
+            android:gravity="end"
+            android:textAlignment="textEnd"
             android:id="@+id/price"
             android:text="price"
             android:height="40sp" />
